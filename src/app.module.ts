@@ -20,6 +20,8 @@ import { Token } from './tokens/token.entity';
 import { Type } from './types/type.entity';
 import { User } from './users/user.entity';
 import { Water } from './waters/water.entity';
+import { SeederService } from './seeder/seeder.service';
+import { SeederModule } from './seeder/seeder.module';
 
 @Module({
   imports: [
@@ -54,6 +56,8 @@ import { Water } from './waters/water.entity';
     StatusesModule,
     TokensModule,
     TypesModule,
+    SeederModule,
   ],
+  providers: [SeederService],
 })
 export class AppModule { }

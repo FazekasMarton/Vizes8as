@@ -20,6 +20,9 @@ export class Water {
     origin: string;
 
     @Column()
+    vintage: number;
+
+    @Column()
     volume: number;
 
     @Column()
