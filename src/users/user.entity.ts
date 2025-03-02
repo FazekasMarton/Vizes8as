@@ -1,6 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { Order } from '../orders/order.entity';
-import { Token } from '../tokens/token.entity';
+import { IsEmail, IsNotEmpty, IsString, Length } from 'class-validator';
 
 @Entity('users')
 export class User {
@@ -8,18 +8,23 @@ export class User {
     id: number;
 
     @Column({ unique: true })
+    @IsString()
+    @IsNotEmpty()
+    @Length(3, 50)
     name: string;
 
     @Column({ unique: true })
+    @IsEmail()
+    @IsNotEmpty()
     email: string;
 
-    @Column()
+    @Column({ select: false })
+    @IsString()
+    @IsNotEmpty()
+    @Length(6, 100)
     password: string;
 
-    @ManyToOne(() => Token, token => token.users)
-    token: Token;
-
-    @Column()
+    @Column({ default: false, select: false })
     isAdmin: boolean;
 
     @OneToMany(() => Order, order => order.user)
