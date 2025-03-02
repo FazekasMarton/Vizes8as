@@ -16,6 +16,7 @@ import { UsersRepository } from './users.repository';
       inject: [DataSource],
     }
   ],
-  controllers: [UsersController]
+  controllers: [UsersController],
+  exports: [UsersService],
 })
 export class UsersModule {}

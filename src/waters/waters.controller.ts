@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Put, Delete, Param, Body } from '@nestjs/common';
+import { Controller, Get, Post, Delete, Param, Body, Patch, Headers } from '@nestjs/common';
 import { WatersService } from './waters.service';
 import { Water } from './water.entity';
 
@@ -17,17 +17,17 @@ export class WatersController {
     }
 
     @Post()
-    createWater(@Body() water: Water){
-        return this.watersService.createWater(water);
+    createWater(@Headers('authorization') authHeader: string, @Body() water: Water){
+        return this.watersService.createWater(water, authHeader);
     }
 
-    @Put(':id')
-    updateWater(@Param('id') id: number, @Body() waterData: Partial<Water>){
-        return this.watersService.updateWater(id, waterData);
+    @Patch(':id')
+    updateWater(@Headers('authorization') authHeader: string, @Param('id') id: number, @Body() waterData: Partial<Water>){
+        return this.watersService.updateWater(id, waterData, authHeader);
     }
 
     @Delete(':id')
-    deleteWater(@Param('id') id: number){
-        return this.watersService.deleteWater(id);
+    deleteWater(@Headers('authorization') authHeader: string, @Param('id') id: number){
+        return this.watersService.deleteWater(id, authHeader);
     }
 }
